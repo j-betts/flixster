@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -68,10 +69,19 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // get data from that json object from the api
         let movie = movies[indexPath.row]
         let title = movie["title"] as! String
+        let synopsis = movie["overview"] as! String
+        
         
         //cell.textLabel!.text = title as! String
         cell.titleLable.text = title
+        cell.synopsisLabel.text = synopsis
         
+        // set up poster
+        let baseUrl = "https://image.tmdb.org/t/p/w185"
+        let posterPath = movie["poster_path"] as! String
+        let posterUrl = URL(string: baseUrl + posterPath)
+        
+        cell.posterView.af_setImage(withURL: posterUrl!)
         return cell
     }
     
