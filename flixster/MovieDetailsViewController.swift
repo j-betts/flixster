@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AlamofireImage
 class MovieDetailsViewController: UIViewController {
 
     
@@ -28,10 +28,17 @@ class MovieDetailsViewController: UIViewController {
         let posterPath = movie["poster_path"] as! String
         let posterUrl = URL(string: baseUrl + posterPath)
         
-        //cell.posterView.af_setImage(withURL: posterUrl!)
+        posterView.af_setImage(withURL: posterUrl!)
+        
+        let backdropPath = movie["backdrop_path"] as! String
+        let backdropUrl = URL(string: "https://image.tmdb.org/t/p/w780" + backdropPath)
+        
+        backdropView.af_setImage(withURL: backdropUrl!)
         
         titleLabel.text = movie["title"] as? String
+        titleLabel.sizeToFit()
         synopsisLabel.text = movie["overview"] as? String
+        synopsisLabel.sizeToFit()
 
 
     }
